@@ -1,1 +1,11 @@
 site_name: hh200-docs
+repo_url: https://github.com/tbmreza/hh200-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - content.action.edit
+
+extra_css:
+  - css/custom.css  # Hide repo button mainly to hide star count of docs repo.

@@ -9,8 +9,8 @@ The test scenario says that a sequence of `POST /login { "username": <Person>, "
 and `GET /report` always return Person's report. We're also interested in learning
 the number of parallel users after which the system-under-test starts to respond in >1 second.
 
-First using Postman, where units of HTTP request are organized in "Collections". Unless your
-team already have a specific workflow, you can do the following:
+First using Postman, where units of HTTP request are organized in "Collections". Unless we're in a team
+with a specific workflow, we can do the following:
 
 * In example-based manner, create requests for the POST and GET endpoints under a Collection.
 * **(Alternative 1)** Utilize pre-request and post-response "Scripts" to encode the necessary chaining effects (i.e. parsing access token, passing the token as variable)
@@ -25,7 +25,7 @@ to sketch. I've been developing an unreleased python package that allows the fol
 
     ...
 
-No one method is superior most of the time. We'll leave with the following premises (as they seem to me)
+No one method is superior most of the time. I'll leave with the following premises (as they seem to me)
 of each method:
 
 1. Postman: "how can teams collaborate on API documentation"
