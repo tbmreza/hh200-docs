@@ -1,4 +1,4 @@
-# Documentation
+# Home
 
 Welcome! Contents hopefully coming really soon.
 
