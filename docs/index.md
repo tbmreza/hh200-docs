@@ -16,7 +16,7 @@ with a specific workflow, we can do the following:
 * **(Alternative 1)** Utilize pre-request and post-response "Scripts" to encode the necessary chaining effects (i.e. parsing access token, passing the token as variable)
 * **(Alternative 2)** Utilize "Flows". To my knowledge, at the time of writing, simulating parallel users is tricky even with this premium feature.
 
-Second, let's use [hurl](hurl.dev). <sketch of how it can look like in hurl\>
+Second, let's use [hurl](https://hurl.dev). <sketch of how it can look like in hurl\>
 
 Why not a general purpose language like python, is what I'm hoping the reader to think at this point, and the third method that we're going
 to sketch. I've been developing an unreleased python package that allows the following program.
