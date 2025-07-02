@@ -7,5 +7,10 @@ theme:
   features:
     - content.action.edit
 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
 extra_css:
   - css/custom.css  # Hide repo button mainly to hide star count of docs repo.
