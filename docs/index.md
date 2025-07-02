@@ -1,4 +1,4 @@
-# Home
+# Documentation home
 
 Welcome! Contents hopefully coming really soon.
 If things are not actually as documented here, please draft a pull request.
@@ -7,8 +7,10 @@ If things are not actually as documented here, please draft a pull request.
 
 To motivate hh200, let's mentally execute an HTTP server test scenario three times.
 The test scenario says that a sequence of `POST /login { "username": Person, password }`
-and `GET /status` always return Person's report. We're also interested in learning
+and `GET /status` always return Person's status. We're also interested in learning
 the number of parallel users after which the system-under-test starts to respond in >1 second.
+
+### Alternatives
 
 !!! abstract "Postman"
     Units of HTTP request are organized in "Collections". Unless we're in a team
@@ -19,8 +21,8 @@ the number of parallel users after which the system-under-test starts to respond
     * **(Alternative 2)** Utilize "Flows". To my knowledge, at the time of writing, simulating parallel users is tricky even with this premium feature.
 
 !!! abstract "Hurl"
-    [Hurl](https://hurl.dev) version unspecified to keep things conceptual, but the main bit can look as follows for the simplest case of testing one user.
-    ```sh
+    Without specifying the Hurl version to keep things conceptual, the main bit can look as follows for the simplest case of testing one user.
+    ```sh linenums="1"
     POST http://staging.example.com/login
     Content-Type: application/json
     {
@@ -41,7 +43,7 @@ the number of parallel users after which the system-under-test starts to respond
     We can express parallel users with OS processes (using bash script). In the following script, one user gets one unix PID.
     <details>
         <summary>AI-generated final bash script</summary>
-        ```sh
+        ```sh linenums="1" hl_lines="51-56"
         #!/bin/bash
 
         # Parallel load test script to find performance threshold
@@ -148,14 +150,16 @@ the number of parallel users after which the system-under-test starts to respond
 !!! abstract "General purpose language"
     Why not a general purpose language like python? I've been developing an unreleased python package that allows the following program.
 
-        import pp200
+    ```python linenums="1"
+    import pp200
 
-        ...
+    ...
+    ```
 
-    For the convenience of the reader:
+    Alternatively, the following looks good to me. (Truly, unironically. The point of this section is to visualize the accidental complexity of using a GPL.)
     <details>
         <summary>AI-generated alternative python implementation</summary>
-        ```python
+        ```python linenums="1"
         """
         Login Performance Load Test
         Tests the login/status retrieval flow and finds the threshold where response time exceeds 1 second
@@ -379,20 +383,59 @@ the number of parallel users after which the system-under-test starts to respond
     </details>
 
 
-No one method, including hh200, is superior most of the time in all situations. I'll leave with the following summary (as they seem to me)
-of each method:
+The following table hopes to list a fair overview for the three methods.
 
-| method        | slogan                                                                                       |
+| method [link] | slogan                                                                                       |
 |---------------|----------------------------------------------------------------------------------------------|
-| Postman       | Explore, test, and document APIs collaboratively in one place                                |
-| Hurl          | Requests in simple text format.                                                              |
-| Python (or any GPL) | The test scripts are as important as the system-under-test itself; might as well use the same main language. |
+| [Postman]     | Explore, test, and document APIs collaboratively in one place                                |
+| [Hurl]        | Requests in simple text format.                                                              |
+| (any GPL)     | The test scripts are as important as the system-under-test itself; might as well use the same main language. |
+
+### Argued ultimate abstraction
+
+Hopefully we have set the stage well for introducing hh200. This is one example of HTTP server testing problem,
+the domain where hh200 tries to specialize in.
+
+```sh linenums="1"
+"get token"
+POST http://staging.example.com/login
+Content-Type: application/json
+{
+  "username": "bob",
+  "password": "loremipsum"
+}
+HTTP 200
+[Captures]
+AUTH_TOKEN: jsonpath "$.token"
+
+"get token" then "status with token"
+GET http://staging.example.com/status
+Authorization: Bearer {{AUTH_TOKEN}}
+HTTP 200
+[Asserts]
+jsonpath "$.username" == "bob"
+duration < 1000
+```
 
 
 All in all, hh200 doesn't compete with Postman GUI; agrees with
-the above python approach where complexity is preferably hidden; aspires to be more modern Hurl.
+the above python approach where complexity is preferably hidden; and ultimately aspires to be more modern Hurl.
+
+To really drive hh200's idea home, the following extensions to the above test scenario might help weighing whether
+hh200 serves your taste decently well.
+
+- insert another endpoint call after "get token"
+- reorder the endpoint calls
+- warn if "get token" returns 201 code instead of 200
+- read from csv for all users that we want to serve in parallel
+- specify the target number of parallel users before which it starts to respond with non-success codes
+- download the status (`GET /status&file=xls`)
+- download a file whose name already exist (keeping both)
 
 
 ## API reference
 - <hackage project url\>
 - <hoogle\>
+
+[Postman]: https://www.postman.com/pricing
+[Hurl]: https://hurl.dev
