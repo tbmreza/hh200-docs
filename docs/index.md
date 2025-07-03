@@ -1,6 +1,6 @@
-# Documentation home
+# Welcome!
 
-Welcome! Contents hopefully coming really soon.
+Contents hopefully coming really soon.
 If things are not actually as documented here, please draft a pull request.
 
 ## Conceptual overview
@@ -19,6 +19,245 @@ the number of parallel users after which the system-under-test starts to respond
     * In example-based manner, create requests for the POST and GET endpoints under a Collection.
     * **(Alternative 1)** Utilize pre-request and post-response "Scripts" to encode the necessary chaining effects (i.e. parsing access token, passing the token as variable)
     * **(Alternative 2)** Utilize "Flows". To my knowledge, at the time of writing, simulating parallel users is tricky even with this premium feature.
+
+    We had AI sketch what the script could look like. The script does more (i.e. {average, max} {login, get status} time) than it's asked while it's at it, but after deleting
+    the extraneous lines:
+
+    <details>
+        <summary>AI-generated pre-request & post-response scripts</summary>
+        ```js linenums="1"
+        // ===========================================
+        // PRE-REQUEST SCRIPT FOR LOGIN ENDPOINT
+        // ===========================================
+
+        // Initialize or increment user counter for parallel testing
+        let userCounter = pm.globals.get('userCounter') || 1;
+        let currentIteration = pm.info.iteration + 1;
+        let totalIterations = pm.info.iterationCount;
+
+        // Generate unique username for this iteration
+        const username = `user${userCounter}`;
+        pm.collectionVariables.set('current_user', username);
+
+        // Increment counter for next iteration
+        pm.globals.set('userCounter', userCounter + 1);
+
+        console.log(`Iteration ${currentIteration}/${totalIterations}: Testing with user ${username}`);
+
+        // Initialize performance tracking
+        if (!pm.globals.get('testResults')) {
+            pm.globals.set('testResults', JSON.stringify([]));
+        }
+
+        // Set start time for this user's complete flow
+        pm.globals.set(`startTime_${username}`, Date.now());
+
+        // ===========================================
+        // POST-RESPONSE SCRIPT FOR LOGIN ENDPOINT
+        // ===========================================
+
+        const username = pm.collectionVariables.get('current_user');
+        const responseTime = pm.response.responseTime;
+
+        // Test response status
+        pm.test('Login successful', function () {
+            pm.response.to.have.status(200);
+        });
+
+        // Test response time threshold
+        pm.test('Login response time < 1s', function () {
+            pm.expect(pm.response.responseTime).to.be.below(1000);
+        });
+
+        // Extract and save token
+        if (pm.response.code === 200) {
+            const response = pm.response.json();
+            
+            pm.test('Token exists in response', function () {
+                pm.expect(response).to.have.property('token');
+            });
+            
+            if (response.token) {
+                pm.collectionVariables.set('auth_token', response.token);
+                console.log(`Login successful for ${username} (${responseTime}ms)`);
+            }
+        } else {
+            console.log(`Login failed for ${username}: Status ${pm.response.code}`);
+        }
+
+        // Track login performance
+        pm.globals.set(`loginTime_${username}`, responseTime);
+
+        // ===========================================
+        // PRE-REQUEST SCRIPT FOR STATUS ENDPOINT
+        // ===========================================
+
+        const username = pm.collectionVariables.get('current_user');
+        console.log(`Fetching data for ${username}`);
+
+        // Ensure we have an auth token
+        const token = pm.collectionVariables.get('auth_token');
+        if (!token) {
+            console.error(`No auth token available for ${username}`);
+        }
+
+        // ===========================================
+        // POST-RESPONSE SCRIPT FOR STATUS ENDPOINT
+        // ===========================================
+
+        const username = pm.collectionVariables.get('current_user');
+        const responseTime = pm.response.responseTime;
+        const loginTime = pm.globals.get(`loginTime_${username}`) || 0;
+        const startTime = pm.globals.get(`startTime_${username}`) || Date.now();
+        const totalTime = Date.now() - startTime;
+
+        // Test response status
+        pm.test('Data retrieval successful', function () {
+            pm.response.to.have.status(200);
+        });
+
+        // Test response time threshold
+        pm.test('Data response time < 1s', function () {
+            pm.expect(pm.response.responseTime).to.be.below(1000);
+        });
+
+        // Verify user data
+        if (pm.response.code === 200) {
+            const response = pm.response.json();
+            
+            pm.test('Correct user data returned', function () {
+                pm.expect(response.username).to.equal(username);
+            });
+            
+            console.log(`Data retrieval successful for ${username} (${responseTime}ms)`);
+        } else {
+            console.log(`Data retrieval failed for ${username}: Status ${pm.response.code}`);
+        }
+
+        // Collect performance data
+        let testResults = JSON.parse(pm.globals.get('testResults') || '[]');
+        testResults.push({
+            username: username,
+            loginTime: loginTime,
+            dataTime: responseTime,
+            totalTime: totalTime,
+            loginSuccess: pm.globals.get(`loginTime_${username}`) ? true : false,
+            dataSuccess: pm.response.code === 200,
+            timestamp: new Date().toISOString()
+        });
+
+        pm.globals.set('testResults', JSON.stringify(testResults));
+
+        // Performance analysis on final iteration
+        const currentIteration = pm.info.iteration + 1;
+        const totalIterations = pm.info.iterationCount;
+
+        if (currentIteration === totalIterations) {
+            console.log('\n=== PERFORMANCE ANALYSIS ===');
+            
+            const results = JSON.parse(pm.globals.get('testResults') || '[]');
+            const successfulResults = results.filter(r => r.loginSuccess && r.dataSuccess);
+            const failedResults = results.filter(r => !r.loginSuccess || !r.dataSuccess);
+            
+            // Calculate statistics
+            const totalTests = results.length;
+            const successCount = successfulResults.length;
+            const failureCount = failedResults.length;
+            const successRate = (successCount / totalTests * 100).toFixed(1);
+            
+            // Response time analysis
+            const loginTimes = successfulResults.map(r => r.loginTime);
+            const dataTimes = successfulResults.map(r => r.dataTime);
+            const totalTimes = successfulResults.map(r => r.totalTime);
+            
+            // Count slow responses (>1s)
+            const slowLoginResponses = loginTimes.filter(t => t > 1000).length;
+            const slowDataResponses = dataTimes.filter(t => t > 1000).length;
+            const totalSlowResponses = slowLoginResponses + slowDataResponses;
+            
+            console.log(`Total Users Tested: ${totalTests}`);
+            console.log(`Successful: ${successCount} (${successRate}%)`);
+            console.log(`Failed: ${failureCount}`);
+            console.log(`Slow Responses (>1s): ${totalSlowResponses}`);
+            console.log(`  - Slow Login: ${slowLoginResponses}`);
+            console.log(`  - Slow Data: ${slowDataResponses}`);
+            
+            // Threshold detection
+            if (totalSlowResponses > 0) {
+                console.log(`\n*** PERFORMANCE THRESHOLD DETECTED ***`);
+                console.log(`System shows degraded performance with ${totalTests} parallel users`);
+                console.log(`${totalSlowResponses} responses exceeded 1 second threshold`);
+            } else {
+                console.log(`\n*** ALL RESPONSES UNDER 1 SECOND ***`);
+                console.log(`System handles ${totalTests} parallel users efficiently`);
+                console.log(`Consider testing with more users to find threshold`);
+            }
+            
+            // Performance test results for collection variables
+            pm.collectionVariables.set('final_results', JSON.stringify({
+                totalUsers: totalTests,
+                successRate: successRate,
+                slowResponses: totalSlowResponses,
+                thresholdExceeded: totalSlowResponses > 0
+            }));
+            
+            // Clean up globals
+            pm.globals.unset('userCounter');
+            pm.globals.unset('testResults');
+            
+            // Clean up individual user data
+            for (let i = 1; i <= totalTests; i++) {
+                pm.globals.unset(`startTime_user${i}`);
+                pm.globals.unset(`loginTime_user${i}`);
+            }
+        }
+
+        // ===========================================
+        // COLLECTION-LEVEL PRE-REQUEST SCRIPT
+        // ===========================================
+
+        // Initialize test environment
+        console.log('Initializing Login Performance Load Test...');
+
+        // Reset any previous test data
+        pm.globals.unset('userCounter');
+        pm.globals.unset('testResults');
+
+        // Set test configuration
+        const testConfig = {
+            baseUrl: pm.collectionVariables.get('base_url') || 'http://staging.example.com',
+            responseTimeThreshold: parseInt(pm.collectionVariables.get('response_time_threshold') || '1000'),
+            maxUsers: 50
+        };
+
+        console.log('Test Configuration:', testConfig);
+        console.log(`Testing will run with ${pm.info.iterationCount} parallel users`);
+        console.log(`Looking for responses exceeding ${testConfig.responseTimeThreshold}ms threshold`);
+
+        // ===========================================
+        // COLLECTION-LEVEL POST-REQUEST SCRIPT
+        // ===========================================
+
+        // This runs after all requests in the collection
+        console.log('Load test execution completed');
+
+        // Final cleanup and summary
+        const finalResults = pm.collectionVariables.get('final_results');
+        if (finalResults) {
+            const results = JSON.parse(finalResults);
+            console.log('\n=== FINAL SUMMARY ===');
+            console.log(`Tested ${results.totalUsers} parallel users`);
+            console.log(`Success Rate: ${results.successRate}%`);
+            console.log(`Performance Threshold ${results.thresholdExceeded ? 'EXCEEDED' : 'NOT REACHED'}`);
+            
+            if (results.thresholdExceeded) {
+                console.log(`⚠️ System performance degrades with ${results.totalUsers} parallel users`);
+            } else {
+                console.log(`✅ System handles ${results.totalUsers} parallel users efficiently`);
+            }
+        }
+        ```
+    </details>
 
 !!! abstract "Hurl"
     Without specifying the Hurl version to keep things conceptual, the main bit can look as follows for the simplest case of testing one user.
@@ -421,7 +660,7 @@ duration < 1000
 All in all, hh200 doesn't compete with Postman GUI; agrees with
 the above python approach where complexity is preferably hidden; and ultimately aspires to be more modern Hurl.
 
-To really drive hh200's idea home, the following extensions to the above test scenario might help weighing whether
+The following extensions to the above test scenario might help weighing whether
 hh200 serves your taste decently well.
 
 - insert another endpoint call after "get token"

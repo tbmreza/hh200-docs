@@ -1,10 +1,10 @@
 # Citation
 
-It is probably of your interest (or even required) to cite our paper if you use or build on hh200.
+It is probably of your interest (or even required) to cite our paper if you use, build on, or experiment with hh200.
 
 > (unpublished)
 
-To do so, you can use one of the following.
+If you don't see a familiar citation format, please draft a pull request.
 
 ```bibtex
 @article{Handzalah1970,
