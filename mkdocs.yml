@@ -6,6 +6,8 @@ theme:
   name: material
   features:
     - content.action.edit
+  icon:
+    logo: material/hand-okay
 
 markdown_extensions:
   - admonition

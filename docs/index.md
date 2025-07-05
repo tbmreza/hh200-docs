@@ -7,7 +7,7 @@ If things are not actually as documented here, please draft a pull request.
 
 To motivate hh200, let's mentally execute an HTTP server test scenario three times.
 The test scenario says that a sequence of `POST /login { "username": Person, password }`
-and `GET /status` always return Person's status. We're also interested in learning
+and `GET /status` (bearing login token) always return Person's status. We're also interested in learning
 the number of parallel users after which the system-under-test starts to respond in >1 second.
 
 ### Alternatives
