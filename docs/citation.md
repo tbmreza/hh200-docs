@@ -6,12 +6,12 @@ It is probably of your interest (or even required) to cite our paper if you use,
 
 If you don't see a familiar citation format, please draft a pull request.
 
-```bibtex
+```bibtex title="entry.bib"
 @article{Handzalah1970,
     journal = {Journal of Open Source Software}
 }
 ```
-```json
+```json title="entry.json"
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
@@ -23,7 +23,7 @@ If you don't see a familiar citation format, please draft a pull request.
     "familyName": "Handzalah"
   },
   "codeRepository": "https://github.com/tbmreza/hh200",
-  "license": "",
+  "license": "MIT",
   "datePublished": "1970-06-30"
 }
 ```
