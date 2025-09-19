@@ -13,6 +13,8 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 extra_css:
   - css/custom.css  # Hide repo button mainly to hide star count of docs repo.
