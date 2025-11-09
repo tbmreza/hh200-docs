@@ -656,12 +656,11 @@ jsonpath "$.username" == "bob"
 duration < 1000
 ```
 
-
-All in all, hh200 doesn't compete with Postman GUI; agrees with
+Conceptually, hh200 doesn't compete with Postman GUI; agrees with
 the above python approach where complexity is preferably hidden; and ultimately aspires to be more modern Hurl.
 
 The following extensions to the above test scenario might help weighing whether
-hh200 serves your taste decently well.
+hh200 serves your taste decently well!
 
 - insert another endpoint call after "get token"
 - reorder the endpoint calls
@@ -670,6 +669,144 @@ hh200 serves your taste decently well.
 - specify the target number of parallel users before which it starts to respond with non-success codes
 - download the status (`GET /status&file=xls`)
 - download a file whose name already exist (keeping both)
+
+
+## Structure
+
+hh200 takes active measures not to fight the ecosystem and avoid stylistic inventions
+whenever possible. We clip the following table from hurl's documentation.
+
+<div class="hurl-structure-schema">
+  <p>
+    Only URL part of the first line in request spec is mandatory.
+  </p>
+  <div class="hurl-structure">
+    <div class="hurl-structure-col-0">
+        <div class="hurl-part-0">
+            PUT https://sample.net
+        </div>
+        <div class="hurl-part-1">
+            accept: */*<br>x-powered-by: Express<br>user-agent: Test
+        </div>
+        <div class="hurl-part-2">
+            [Options]<br>...
+        </div>
+        <div class="hurl-part-2">
+            [Query]<br>...
+        </div>
+        <div class="hurl-part-2">
+            [Form]<br>...
+        </div>
+        <div class="hurl-part-2">
+            [BasicAuth]<br>...
+        </div>
+        <div class="hurl-part-2">
+            [Cookies]<br>...
+        </div>
+        <div class="hurl-part-2">
+            ...
+        </div>
+        <div class="hurl-part-2">
+            ...
+        </div>
+        <div class="hurl-part-3">
+            {<br>
+            &nbsp;&nbsp;"type": "FOO",<br>
+            &nbsp;&nbsp;"value": 356789,<br>
+            &nbsp;&nbsp;"ordered": true,<br>
+            &nbsp;&nbsp;"index": 10<br>
+            }
+        </div>
+    </div>
+    <!-- <div class="hurl-structure-col-1"> -->
+    <!--     <div class="hurl-request-explanation-part-0"> -->
+    <!--         <a href="#method">Method</a> and <a href="#url">URL</a> (mandatory) -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-1"> -->
+    <!--         <br> -->
+    <!--         <br><a href="#headers">HTTP request headers</a> (optional) -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-2"> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-2"> -->
+    <!--         <a href="#options">Options</a>, <a href="#query-parameters">query strings</a>, <a href="#form-parameters">form params</a>, <a href="#cookies">cookies</a>, <a href="#basic-authentication">authentication</a> ...<br>(optional sections, unordered) -->
+    <!--         <br> -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-2"> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-3"> -->
+    <!--         <br> -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-3"> -->
+    <!--         <a href="#body">HTTP request body</a> (optional) -->
+    <!--     </div> -->
+    <!-- </div> -->
+  </div>
+
+  <p>
+    The entire response spec section below is optional.
+  </p>
+
+  <div class="hurl-structure">
+    <div class="hurl-structure-col-0">
+        <div class="hurl-part-0">
+            HTTP 200
+        </div>
+        <div class=" hurl-part-1">
+            content-length: 206<br>accept-ranges: bytes<br>user-agent: Test
+        </div>
+        <div class="hurl-part-2">
+            [Captures]<br>...
+        </div>
+        <div class="hurl-part-2">
+            [Asserts]<br>...
+        </div>
+        <div class="hurl-part-3">
+            {<br>
+            &nbsp;&nbsp;"type": "FOO",<br>
+            &nbsp;&nbsp;"value": 356789,<br>
+            &nbsp;&nbsp;"ordered": true,<br>
+            &nbsp;&nbsp;"index": 10<br>
+            }
+        </div>
+    </div>
+    <!-- <div class="hurl-structure-col-1"> -->
+    <!--     <div class="hurl-request-explanation-part-0"> -->
+    <!--         <a href="/docs/asserting-response.html#version-status">Version and status (mandatory if response present)</a> -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-1"> -->
+    <!--         <br><a href="/docs/asserting-response.html#headers">HTTP response headers</a> (optional) -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-2"> -->
+    <!--         <br> -->
+    <!--         <br> -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-2"> -->
+    <!--         <a href="/docs/capturing-response.html">Captures</a> and <a href="/docs/asserting-response.html#asserts">asserts</a> (optional sections, unordered) -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-2"> -->
+    <!--       <br> -->
+    <!--       <br> -->
+    <!--       <br> -->
+    <!--       <br> -->
+    <!--     </div> -->
+    <!--     <div class="hurl-request-explanation-part-3"> -->
+    <!--         <a href="/docs/asserting-response.html#body">HTTP response body</a> (optional) -->
+    <!--     </div> -->
+    <!-- </div> -->
+</div>
+</div>
 
 
 ## API reference

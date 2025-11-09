@@ -1,1 +1,126 @@
+html {
+  --hurl-structure-0-front: #ff0288;
+  --hurl-structure-0-back: #f5f5f5;
+  --hurl-structure-1-front: #009900;
+  --hurl-structure-1-back: #f5f5f5;
+  --hurl-structure-2-front: #ff8000;
+  --hurl-structure-2-back: #f5f5f5;
+  --hurl-structure-3-front: dodgerblue;
+  --hurl-structure-3-back: #f5f5f5;
+
+  /* --hurl-structure-0-front: #ff0288; */
+  /* --hurl-structure-0-back: #27272c; */
+  /* --hurl-structure-1-front: #009900; */
+  /* --hurl-structure-1-back: #27272c; */
+  /* --hurl-structure-2-front: #ff8000; */
+  /* --hurl-structure-2-back: #27272c; */
+  /* --hurl-structure-3-front: dodgerblue; */
+  /* --hurl-structure-3-back: #27272c; */
+}
+.hurl-structure-schema {
+  /* margin-top: 3rem; */
+  margin-bottom: 3rem;
+}
+/* @media only screen and (min-width: 768px) { */
+/*   .hurl-structure-schema { */
+/*     margin: 3rem 2rem; */
+/*   } */
+/* } */
+
+.hurl-structure {
+  display: flex;
+}
+
+.hurl-structure-col-0 {
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", " Courier New", monospace;
+  font-size: 0.85rem;
+}
+@media only screen and (min-width: 768px) {
+  .hurl-structure-col-0 {
+    font-size: 1rem;
+  }
+}
+.hurl-structure-col-0 {
+  line-height: 1.5;
+}
+
+.hurl-part-0 {
+  background-color: #f5f5f5;
+  background-color: var(--hurl-structure-0-back);
+  color: #ff0288;
+  color: var(--hurl-structure-0-front);
+  border-right: 4px solid;
+  border-color: #ff0288;
+  border-color: var(--hurl-structure-0-front);
+  padding-top: 10px;
+  padding-right: 40px;
+  padding-left: 10px;
+  padding-bottom: 2px;
+  border-bottom: dashed 1px;
+  border-bottom-color: #8c8c8c;
+}
+
+.hurl-request-explanation-part-0 {
+  padding: 10px 10px 2px;
+}
+
+.hurl-part-1 {
+  background-color: #f5f5f5;
+  background-color: var(--hurl-structure-1-back);
+  color: #009900;
+  color: var(--hurl-structure-1-front);
+  border-right: 4px solid;
+  border-color: #009900;
+  border-color: var(--hurl-structure-1-front);
+  padding-top: 2px;
+  padding-right: 40px;
+  padding-left: 10px;
+  padding-bottom: 2px;
+  border-bottom: dashed 1px;
+  border-bottom-color: #8c8c8c;
+}
+
+.hurl-request-explanation-part-1 {
+  padding: 2px 10px;
+}
+
+.hurl-part-2 {
+  background-color: #f5f5f5;
+  background-color: var(--hurl-structure-2-back);
+  color: #ff8000;
+  color: var(--hurl-structure-2-front);
+  border-right: 4px solid;
+  border-color: #ff8000;
+  border-color: var(--hurl-structure-2-front);
+  padding-top: 1px;
+  padding-right: 40px;
+  padding-left: 10px;
+  padding-bottom: 1px;
+}
+
+.hurl-request-explanation-part-2 {
+  padding: 2px 10px;
+}
+
+.hurl-part-3 {
+  background-color: #f5f5f5;
+  background-color: var(--hurl-structure-3-back);
+  color: dodgerblue;
+  color: var(--hurl-structure-3-front);
+  border-right: 4px solid;
+  border-color: dodgerblue;
+  border-color: var(--hurl-structure-3-front);
+  padding-top: 2px;
+  padding-right: 40px;
+  padding-left: 10px;
+  padding-bottom: 2px;
+  border-top: dashed 1px;
+  border-top-color: #8c8c8c;
+}
+
+.hurl-request-explanation-part-3 {
+  padding: 2px 10px;
+}
+
+
 .md-header__source, .md-nav__source { display: none; }
