@@ -2,10 +2,25 @@ site_name: hh200-docs
 repo_url: https://github.com/tbmreza/hh200-docs
 edit_uri: edit/main/docs/
 
+nav:
+  - Home: index.md
+  - Getting Started: 001-getting-started.md
+  - Basic Usage: 002-basic-usage.md
+  - Contributing: 003-contributing.md
+  - Running Distributed: 004-running-distributed.md
+  - Examples:
+      - Overview: examples/index.md
+      - Hello World: examples/001-hello-world.md
+      - Download File: examples/002-download-file.md
+  - License: license.md
+
 theme:
   name: material
   features:
     - content.action.edit
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
   icon:
     logo: material/hand-okay
 
