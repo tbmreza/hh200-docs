@@ -29,6 +29,22 @@ Aside from toy problems and demonstrations, the majority of problems require
 efficient numerical tools, many of which require the same base code (e.g., for
 performing numerical orbit integration).
 
+The problem domain HTTP testing.
+
+The name hh200 reflects the core philosophy of the language: composable
+HTTP requests with success as default expectation[^1].
+The repeated h in the prefix symbolizes the
+chaining of HTTP request invocations, capturing the idea of
+declarative composition.
+The 200 refers to the HTTP `200 OK` status code,
+emphasizing the client’s orientation toward clean and successful interactions.
+Together, hh200 suggests an expressive tool for building reliable
+HTTP workflows with minimal overhead.
+
+[^1]: Tester declares what they deem yields positive results. When expectation
+doesn't match how the system-under-test behaves, the tool highlights which of
+the tester's declarations might be useful for investigating the mismatch.
+
 # Statement of need
 
 `Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
@@ -50,6 +66,10 @@ visualizations of textbook material [@Binney:2008]. The combination of speed,
 design, and support for Astropy functionality in `Gala` will enable exciting
 scientific explorations of forthcoming data releases from the *Gaia* mission
 [@gaia] by students and experts alike.
+
+Q: Is the typing, semantics, maths etc sound?
+Q: Will it ever need plugins to satisfy the entirety of HTTP testing problem domain? Escape to GPL?
+Q: Plans, relations on adjacent, subset, superset problem domains?
 
 # Mathematics
 

@@ -674,7 +674,7 @@ hh200 serves your taste decently well!
 ## Structure
 
 hh200 takes active measures not to fight the ecosystem and avoid stylistic inventions
-whenever possible. We clip the following table from hurl's documentation.
+whenever possible. We clip the following table from Hurl's documentation.
 
 <div class="hurl-structure-schema">
   <p>
@@ -718,44 +718,10 @@ whenever possible. We clip the following table from hurl's documentation.
             }
         </div>
     </div>
-    <!-- <div class="hurl-structure-col-1"> -->
-    <!--     <div class="hurl-request-explanation-part-0"> -->
-    <!--         <a href="#method">Method</a> and <a href="#url">URL</a> (mandatory) -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-1"> -->
-    <!--         <br> -->
-    <!--         <br><a href="#headers">HTTP request headers</a> (optional) -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-2"> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-2"> -->
-    <!--         <a href="#options">Options</a>, <a href="#query-parameters">query strings</a>, <a href="#form-parameters">form params</a>, <a href="#cookies">cookies</a>, <a href="#basic-authentication">authentication</a> ...<br>(optional sections, unordered) -->
-    <!--         <br> -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-2"> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-3"> -->
-    <!--         <br> -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-3"> -->
-    <!--         <a href="#body">HTTP request body</a> (optional) -->
-    <!--     </div> -->
-    <!-- </div> -->
   </div>
 
   <p>
-    The entire response spec section below is optional.
+    The entire (in sum and parts) response spec section below is optional.
   </p>
 
   <div class="hurl-structure">
@@ -781,32 +747,20 @@ whenever possible. We clip the following table from hurl's documentation.
             }
         </div>
     </div>
-    <!-- <div class="hurl-structure-col-1"> -->
-    <!--     <div class="hurl-request-explanation-part-0"> -->
-    <!--         <a href="/docs/asserting-response.html#version-status">Version and status (mandatory if response present)</a> -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-1"> -->
-    <!--         <br><a href="/docs/asserting-response.html#headers">HTTP response headers</a> (optional) -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-2"> -->
-    <!--         <br> -->
-    <!--         <br> -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-2"> -->
-    <!--         <a href="/docs/capturing-response.html">Captures</a> and <a href="/docs/asserting-response.html#asserts">asserts</a> (optional sections, unordered) -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-2"> -->
-    <!--       <br> -->
-    <!--       <br> -->
-    <!--       <br> -->
-    <!--       <br> -->
-    <!--     </div> -->
-    <!--     <div class="hurl-request-explanation-part-3"> -->
-    <!--         <a href="/docs/asserting-response.html#body">HTTP response body</a> (optional) -->
-    <!--     </div> -->
-    <!-- </div> -->
 </div>
 </div>
+
+### jsonpath
+
+??: list of popular things that support jsonpath: kubectl,
+JSONPath 2007 https://goessner.net/articles/JsonPath/
+https://github.com/dchester/jsonpath
+https://github.com/json-path/JsonPath
+
+### BEL expression language
+
+https://github.com/google/cel-spec
+??: ... might or might not evolve to haskell port of CEL.
 
 
 ## API reference
