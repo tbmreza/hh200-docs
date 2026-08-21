@@ -1,0 +1,11 @@
+[project]
+name = "hh200-docs"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "mkdocs==1.6.1",
+    "mkdocs-get-deps==0.2.0",
+    "mkdocs-material==9.6.4",
+    "mkdocs-material-extensions==1.3.1",
+    "mkdocs-mermaid2-plugin>=1.2.3",
+]

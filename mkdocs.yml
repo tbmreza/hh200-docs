@@ -16,6 +16,10 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 
+plugins:
+    - search
+    - mermaid2
+
 extra_css:
   - css/custom.css  # - Structure section tables from hurl site.
                     # - Hide repo button mainly to hide star count of docs repo.
