@@ -1,3 +1,5 @@
+# License
+
 !!! warning "MIT License"
     Copyright 2025 Reza Handzalah
 

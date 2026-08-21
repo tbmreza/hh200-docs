@@ -762,6 +762,8 @@ https://github.com/json-path/JsonPath
 https://github.com/google/cel-spec
 ??: ... might or might not evolve to haskell port of CEL.
 
+??: a paragraph summarizing our semantics for "delay"
+
 
 ## API reference
 - <hackage project url\>
