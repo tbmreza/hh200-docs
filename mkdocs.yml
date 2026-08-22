@@ -9,16 +9,20 @@ theme:
   icon:
     logo: material/hand-okay
 
-markdown_extensions:
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.tasklist:
-      custom_checkbox: true
-
 plugins:
     - search
     - mermaid2
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 extra_css:
   - css/custom.css  # - Structure section tables from hurl site.
